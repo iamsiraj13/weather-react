@@ -23,7 +23,7 @@ console.log(data)
         }
 
         fetchWeather();
-    },[]);
+    },[search]);
  
     let emoji = null;
 
@@ -68,6 +68,11 @@ console.log(data)
         second:'2-digit'
     })
 
+    const handleSubmit =(e)=>{
+        e.preventDefault();
+        setSearch(input)
+
+    }
   return (
     <div>
       <div className="container mt-5">
@@ -80,13 +85,16 @@ console.log(data)
                 className="img-fluid"
               />
               <div className="card-img-overlay">
-                <form>
+                <form onSubmit={handleSubmit}>
                   <div className="input-group mb-4 w-75 mx-auto">
                     <input
                       type="search"
                       placeholder="Search City"
                       className="form-control"
-                      onClick={(e)=>setSearch(e.target.value)}
+                      value={input}
+                      name="search"
+                      required
+                      onChange={(e)=>setInput(e.target.value)}
                     />
                     <button type="submit" className="input-group-text">
                       <i className="fas fa-search"></i>
@@ -97,7 +105,7 @@ console.log(data)
                   <h5 className="card-title">{data.name}</h5>
                   <p className="card-text lead">
                     {day}, {month} {date}, {year}
-                    <br/>
+                    <br/> 
                     {time}
                   </p>
                   <hr />
